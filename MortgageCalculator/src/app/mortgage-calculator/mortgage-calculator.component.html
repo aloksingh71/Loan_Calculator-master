@@ -1,0 +1,43 @@
+<div class="mortgage-calculator">
+  <div class="form-container">
+    <h1>Your Mortgage</h1>
+    <h2>Calculate Your Mortgage</h2>
+    <form (ngSubmit)="calculateMortgage()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="loanAmount">Loan Amount <span>Required</span></label>
+          <input type="number" id="loanAmount" [(ngModel)]="loanAmount" name="loanAmount" required (focus)="clearDefault('loanAmount')" />
+        </div>
+        <div class="form-group">
+          <label for="interestRate">Interest Rate (%) <span>Required</span></label>
+          <input type="number" id="interestRate" [(ngModel)]="interestRate" name="interestRate" step="0.01" required (focus)="clearDefault('interestRate')" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="loanTerm">Loan Term (Years) <span>Required</span></label>
+          <select id="loanTerm" [(ngModel)]="loanTerm" name="loanTerm" required (focus)="clearDefault('loanTerm')">
+            <option value="" disabled selected>Select</option>
+            <option value="15">15 Years</option>
+            <option value="20">20 Years</option>
+            <option value="25">25 Years</option>
+            <option value="30">30 Years</option>
+            <option value="35">35 Years</option>
+          </select>
+        </div>
+      </div>
+      <div class="button-group">
+        <button type="button" class="go-back">Go Back</button>
+        <button type="submit" class="next-step">Next Step</button>
+      </div>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    </form>
+  </div>
+
+  <div [ngClass]="{ 'blur': !submitted }" class="calculation-results">
+    <h3>Your Mortgage Calculation</h3>
+    <p>Here we will give you an estimate of your repayments </p>
+    <p><strong>Monthly Payment:</strong> €{{ monthlyPayment | number: '1.2-2' }}</p>
+    <p><strong>Total Amount to be Paid:</strong> €{{ totalPayment | number: '1.2-2' }}</p>
+  </div>
+</div>
